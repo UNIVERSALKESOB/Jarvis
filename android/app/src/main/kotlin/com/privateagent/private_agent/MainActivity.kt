@@ -538,10 +538,10 @@ class MainActivity : FlutterActivity() {
             safeCancelAndDestroy()
             val delay = when (error) {
                 SpeechRecognizer.ERROR_NO_MATCH,
-                SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> 50L
+                SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> 1500L
                 SpeechRecognizer.ERROR_RECOGNIZER_BUSY,
-                SpeechRecognizer.ERROR_CLIENT -> 120L
-                else -> 250L
+                SpeechRecognizer.ERROR_CLIENT -> 2000L
+                else -> 1000L
             }
             scheduleRestart(delay)
         }

@@ -212,7 +212,7 @@ class TaskExecutor extends ChangeNotifier {
     _log(ChatMessage.user(message));
     notifyListeners();
 
-    final agentMsg = ChatMessage.agent('');
+    final agentMsg = ChatMessage.agent('Thinking...');
     _log(agentMsg);
     notifyListeners();
 

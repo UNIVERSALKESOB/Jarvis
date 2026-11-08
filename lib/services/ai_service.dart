@@ -684,6 +684,16 @@ Rules:
 
   /// The system prompt for plain chatbot mode (no device control).
   String buildChatSystemPrompt([String? userMessage]) {
+    if (_isLocalBackend) {
+      final memory = ConversationalMemoryService.instance.buildMemoryContext();
+      return '''
+You are Jarvis, an elite, highly intelligent personal AI companion on Android.
+Address the user respectfully as "sir" by default (or by their name if provided).
+Always answer and converse naturally in the user's language (Bengali if user speaks Bengali, English if English).
+Be helpful, direct, concise, and articulate.
+${memory.isNotEmpty ? '$memory\n' : ''}
+'''.trim();
+    }
     final hermes = HermesEvolutionService.instance.buildHermesSystemContext();
     final persona = PersonalityService.instance.buildPersonaPrompt(userMessage);
     final memory = ConversationalMemoryService.instance.buildMemoryContext();
@@ -904,8 +914,8 @@ You cannot directly tap the screen in this mode. If the user asks you to perform
     List<Map<String, String>> history = const [],
   }) async {
     final settings = SettingsService.instance;
-    final hermes = HermesEvolutionService.instance.buildHermesSystemContext();
-    final persona = PersonalityService.instance.buildPersonaPrompt(speech);
+    final hermes = _isLocalBackend ? '' : HermesEvolutionService.instance.buildHermesSystemContext();
+    final persona = _isLocalBackend ? 'You are Jarvis, an elite on-device AI voice agent.' : PersonalityService.instance.buildPersonaPrompt(speech);
     final memory = ConversationalMemoryService.instance.buildMemoryContext();
 
     final systemPrompt = '''
