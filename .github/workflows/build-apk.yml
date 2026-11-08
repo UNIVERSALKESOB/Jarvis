@@ -3,7 +3,7 @@ name: Build Jarvis APK
 on:
   push:
     branches: [ "main", "master" ]
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build-android:
@@ -23,7 +23,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.2'
+          flutter-version: '3.27.4'
           channel: 'stable'
           cache: true
 
@@ -33,14 +33,13 @@ jobs:
       - name: Get Flutter dependencies
         run: flutter pub get
 
-      - name: Analyze code (lint check)
+      - name: Analyze code
         run: flutter analyze --no-fatal-infos || true
 
       - name: Build APK (release, debug-signed)
         run: |
           flutter build apk \
             --release \
-            --no-shrink \
             --build-name="1.1.0-kesob" \
             --build-number=3
 
@@ -49,6 +48,7 @@ jobs:
           mkdir -p artifacts
           cp build/app/outputs/flutter-apk/app-release.apk \
              artifacts/Jarvis-Uncensored-v1.1.0-KESOB.apk
+          ls -lh artifacts/
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
@@ -57,28 +57,3 @@ jobs:
           path: artifacts/Jarvis-Uncensored-v1.1.0-KESOB.apk
           retention-days: 30
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v1.1.0-kesob-uncensored
-          name: "Jarvis Uncensored v1.1.0 (KESOB Build)"
-          body: |
-            ## Jarvis AI Assistant - Uncensored Build
-            ### এই APK-এ যা আছে:
-            - ✅ **Offline AI** — ইন্টারনেট ছাড়াই চলে (Ollama দিয়ে)
-            - ✅ **Uncensored Dolphin-Phi** মডেল সাপোর্ট (ডিফল্ট)
-            - ✅ **বাংলা Wake Word** — "জারভিস" বলেও জাগানো যাবে
-            - ✅ **Bengali TTS** — বাংলা উত্তর বাংলায় বলবে
-            - ✅ **Ollama default** — ইনস্টল করলেই সরাসরি local AI কাজ করবে
-            - ✅ **সব এজেন্ট ফিচার** — ভয়েস কমান্ডে ফোন কন্ট্রোল
-            
-            ### ইনস্টল করার আগে:
-            1. পুরনো Jarvis APK আনইনস্টল করো
-            2. Termux-এ `jarvis-ai` কমান্ড দিয়ে Ollama চালু করো
-            3. এই APK ইনস্টল করো
-            4. জার্ভিস Settings-এ: Provider = Ollama, URL = http://127.0.0.1:11434/v1, Model = llama3.2
-          files: artifacts/Jarvis-Uncensored-v1.1.0-KESOB.apk
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
