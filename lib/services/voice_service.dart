@@ -286,7 +286,21 @@ class VoiceService {
       }
 
       // 2. Fall back to local FlutterTts (offline safe)
-      await initTts();
+      if (RegExp(r'[\u0980-\u09FF]').hasMatch(clean)) {
+        try {
+          await _tts.setLanguage('bn-IN');
+          _ttsReady = true;
+        } catch (_) {
+          try {
+            await _tts.setLanguage('bn-BD');
+            _ttsReady = true;
+          } catch (_) {
+            await initTts();
+          }
+        }
+      } else {
+        await initTts();
+      }
       if (!_ttsReady) {
         return;
       }

@@ -435,6 +435,10 @@ class MainActivity : FlutterActivity() {
                lower.contains("harvest") ||
                lower.contains("jarvi") ||
                lower.contains("google") ||
+               lower.contains("জারভিস") ||
+               lower.contains("জার্ভিস") ||
+               lower.contains("জারভিজ") ||
+               lower.contains("জার্বিজ") ||
                lower.contains("j.a.r.v.i.s")
     }
 

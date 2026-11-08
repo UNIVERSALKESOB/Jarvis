@@ -78,7 +78,7 @@ class SettingsService extends ChangeNotifier {
     'custom': (label: 'Custom (OpenAI-compatible)', baseUrl: '', model: ''),
   };
 
-  String get provider => _prefs?.getString('ai_provider') ?? 'deepseek';
+  String get provider => _prefs?.getString('ai_provider') ?? 'ollama';
   Future<void> setProvider(String value) async {
     await _prefs?.setString('ai_provider', value);
     final preset = providers[value];
@@ -92,7 +92,7 @@ class SettingsService extends ChangeNotifier {
   String get baseUrl =>
       _prefs?.getString('ai_base_url') ??
       providers[provider]?.baseUrl ??
-      providers['deepseek']!.baseUrl;
+      providers['ollama']!.baseUrl;
   Future<void> setBaseUrl(String value) async {
     await _prefs?.setString('ai_base_url', value.trim());
     notifyListeners();
@@ -107,7 +107,7 @@ class SettingsService extends ChangeNotifier {
   String get model =>
       _prefs?.getString('ai_model') ??
       providers[provider]?.model ??
-      'deepseek-chat';
+      'llama3.2';
   Future<void> setModel(String value) async {
     await _prefs?.setString('ai_model', value.trim());
     notifyListeners();

@@ -340,7 +340,7 @@ class JarvisService extends ChangeNotifier {
     // - standalone (jarvis | javis | jervis | jarves | jarvice | charvis | garvis | jarvi)
     // - (wake up jarvis | jarvis wake up | jarvis please)
     final wakePattern = RegExp(
-      r'\b(?:(?:hey|hello|hi|okay|ok|yo|listen|wake\s+up|dear)\s+(?:jarvis|javis|jervis|jarves|jarvice|charvis|garvis|gervis|travis|service|davis|davies|harvest|jarvi|google)|(?:jarvis|javis|jervis|jarves|jarvice|charvis|garvis|jarvi)\s+(?:wake\s+up|please|online)|(?:jarvis|javis|jervis|jarves|jarvice|charvis|garvis|jarvi)|(?:hey|okay|ok|hello|hi)\s+google)\b',
+      r'(?:\b(?:(?:hey|hello|hi|okay|ok|yo|listen|wake\s+up|dear)\s+(?:jarvis|javis|jervis|jarves|jarvice|charvis|garvis|gervis|travis|service|davis|davies|harvest|jarvi|google)|(?:jarvis|javis|jervis|jarves|jarvice|charvis|garvis|jarvi)\s+(?:wake\s+up|please|online)|(?:jarvis|javis|jervis|jarves|jarvice|charvis|garvis|jarvi)|(?:hey|okay|ok|hello|hi)\s+google)\b|(?:এই\s+|হে\s+|হ্যালো\s+)?(?:জারভিস|জার্ভিস|জারভিজ|জার্বিজ))',
       caseSensitive: false,
     );
 
