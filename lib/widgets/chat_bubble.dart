@@ -224,7 +224,7 @@ class ChatBubble extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ?header,
+                  if (header != null) header,
                   child,
                   const SizedBox(height: 4),
                   Align(
